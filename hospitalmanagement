@@ -1,0 +1,87 @@
+import java.util.ArrayList;
+import java.util.Scanner;
+
+class Patient {
+    private String name;
+    private int age;
+    private String gender;
+
+    public Patient(String name, int age, String gender) {
+        this.name = name;
+        this.age = age;
+        this.gender = gender;
+    }
+
+    @Override
+    public String toString() {
+        return "Name: " + name + "\nAge: " + age + "\nGender: " + gender;
+    }
+}
+
+class Hospital {
+    private ArrayList<Patient> patients;
+
+    public Hospital() {
+        patients = new ArrayList<>();
+    }
+
+    public void registerPatient(String name, int age, String gender) {
+        Patient newPatient = new Patient(name, age, gender);
+        patients.add(newPatient);
+        System.out.println("Patient registered successfully:\n" + newPatient);
+    }
+
+    public void displayPatients() {
+        if (patients.isEmpty()) {
+            System.out.println("No patients registered yet.");
+        } else {
+            System.out.println("List of registered patients:");
+            for (Patient patient : patients) {
+                System.out.println(patient + "\n");
+            }
+        }
+    }
+}
+
+public class HospitalManagementSystem {
+    public static void main(String[] args) {
+        Scanner scanner = new Scanner(System.in);
+        Hospital hospital = new Hospital();
+
+        while (true) {
+            System.out.println("\nHospital Management System");
+            System.out.println("1. Register a new patient");
+            System.out.println("2. Display registered patients");
+            System.out.println("3. Exit");
+
+            System.out.print("Enter your choice: ");
+            int choice = scanner.nextInt();
+
+            switch (choice) {
+                case 1:
+                    System.out.print("Enter patient name: ");
+                    String name = scanner.next();
+
+                    System.out.print("Enter patient age: ");
+                    int age = scanner.nextInt();
+
+                    System.out.print("Enter patient gender: ");
+                    String gender = scanner.next();
+
+                    hospital.registerPatient(name, age, gender);
+                    break;
+
+                case 2:
+                    hospital.displayPatients();
+                    break;
+
+                case 3:
+                    System.out.println("Exiting the system. Goodbye!");
+                    System.exit(0);
+
+                default:
+                    System.out.println("Invalid choice. Please try again.");
+            }
+        }
+    }
+}
